@@ -11,36 +11,49 @@ CarticleHandle::~CarticleHandle()
 
 }
 
-
-BOOLEAN CarticleHandle::GetParagraphs(CString cstrArticle)
+INT CarticleHandle::GetSeparator(CString Separator)
 {
-	if (cstrArticle.Trim().GetLength() <= 0) return FALSE;
-	if (PraCounts >= MAX_PRAS) return FALSE;
-	CString cstrReturn("\r\n");
-	int GetReturn = cstrArticle.Find('\r', 0);
-	CString pra1 = cstrArticle.Left(GetReturn + cstrReturn.GetLength());
-	CString pra_last = cstrArticle.Right(cstrArticle.GetLength() - GetReturn);
+	return 1;
 
-	if (GetReturn != -1)
+}
+
+
+void CarticleHandle::SeparateArticle(CString cstrArticle, CString cstrSeparator)
+{
+	if ((cstrArticle.Trim().GetLength() > 0)&& (PraCounts<=MAX_PRAS))
 	{
-		PraArray[PraCounts] = pra1;
-		PraCounts++;
-		this->GetParagraphs(pra_last);
-		return FALSE;
-	}
-	else
-	{
-		//为方便之后乱序操作，补上最后一段的换行符
-		PraArray[PraCounts] = pra_last + cstrReturn;
-		PraCounts++;
-		return TRUE;
+		int GetSeparator = cstrArticle.Find(cstrSeparator);
+		CString pra_last;
+		CString pra1 = cstrArticle.Left(GetSeparator + cstrSeparator.GetLength());
+		
+		if (cstrSeparator.GetLength() == 2)
+			pra_last = cstrArticle.Right(cstrArticle.GetLength() - GetSeparator); //为回车符时不能-1
+		else
+		{
+			pra_last = cstrArticle.Right(cstrArticle.GetLength() - GetSeparator - 1);
+		}
+		if (GetSeparator != -1)
+		{
+			PraArray[PraCounts] = pra1;
+			PraCounts++;
+			this->SeparateArticle(pra_last, cstrSeparator);//递归调用
+		}
+		else
+		{
+			//为方便之后乱序操作，补上最后一段的换行符
+			//if (cstrSeparator.GetLength() == 2) 
+				PraArray[PraCounts] = pra_last + L"\r\n";
+			//else
+			//	PraArray[PraCounts] = pra_last;
+			PraCounts++;
+		}
 	}
 }
 
 
 void CarticleHandle::RandPras()
 {
-	if (PraCounts > 0)
+	if ((this->CheckInput()))
 	{
 		CString s;
 		this->RandNumer(PraCounts);
@@ -56,27 +69,36 @@ void CarticleHandle::RandPras()
 
 void CarticleHandle::ReSet()
 {
-	this->cstrArticle = "";
-	
-	for (int i = 0; i < PraCounts; i++)
+	if (this->CheckInput())
 	{
-		PraArray[i] = "";
-		TempNumberArray[i] = 0;
-		TempPraArray[i] = "";
-	}
 
-	PraCounts = 0;
+		this->cstrArticle = "";
+
+		for (int i = 0; i < PraCounts; i++)
+		{
+			PraArray[i] = "";
+			TempNumberArray[i] = 0;
+			TempPraArray[i] = "";
+		}
+
+		PraCounts = 0;
+	}
 }
 
 void CarticleHandle::RandNumer(int Num)
 {
-	if (Num <= 1)
-		exit;
-	srand((unsigned)time(NULL));
+	//srand((unsigned)time(NULL));
 	int i, m;
 	for (i = 1; i < Num; i++)
 	{
 		while (TempNumberArray[m = rand() % Num]);
 		TempNumberArray[m] = i;
 	}
+}
+boolean CarticleHandle::CheckInput()
+{
+	if ((PraCounts <= MAX_PRAS) && (PraCounts > 0))
+		return true;
+	else
+		return false;
 }

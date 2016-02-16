@@ -41,4 +41,5 @@ public:
 	afx_msg void OnSetfocusArticle();
 	CEdit conArticle;
 	afx_msg void OnEnSetfocusNewart();
+	afx_msg void OnBnClickedRadio2();
 };

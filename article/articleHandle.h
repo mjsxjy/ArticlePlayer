@@ -1,13 +1,16 @@
 #pragma once
+
 class CarticleHandle
 {
 public:
 	CarticleHandle();
 	~CarticleHandle();
 	CString cstrArticle;
+	//SeparateArticle（递归）将文字按照cstrSeparator指定的符号分隔并传入数组中
+	void SeparateArticle(CString cstrArticle, CString cstrSeparator);
 
-	BOOLEAN GetParagraphs(CString cstrArticle);//（递归）将文字按照段落传入数组中
-	void RandPras();//随机排序段落
+	void RandPras();//随机排序
+
 	void ReSet();
 private:
 	static const int MAX_PRAS = 50; //最大处理的字然段数
@@ -16,5 +19,6 @@ private:
 	int TempNumberArray[MAX_PRAS]; //临时存储产生的随机数字
 	int PraCounts = 0;//存储字然段数
 	void RandNumer(int Num); //产生随机数字，并存放于TempNumberArray中
-
+	INT GetSeparator(CString Separator);
+	boolean CheckInput();
 };

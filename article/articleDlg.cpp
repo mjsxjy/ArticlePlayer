@@ -13,6 +13,8 @@
 #endif
 
 CarticleHandle ch;
+CButton* radioReturn;
+CButton* radioFullStop;
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
@@ -20,7 +22,7 @@ class CAboutDlg : public CDialogEx
 {
 public:
 	CAboutDlg();
-
+	
 // 对话框数据
 	enum { IDD = IDD_ABOUTBOX };
 
@@ -77,6 +79,7 @@ BEGIN_MESSAGE_MAP(CarticleDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON1, &CarticleDlg::OnBnClickedButton1)
 	ON_EN_SETFOCUS(IDC_ARTICLE, &CarticleDlg::OnSetfocusArticle)
 	ON_EN_SETFOCUS(IDC_NewArt, &CarticleDlg::OnEnSetfocusNewart)
+	ON_BN_CLICKED(IDC_RADIO2, &CarticleDlg::OnBnClickedRadio2)
 END_MESSAGE_MAP()
 
 
@@ -114,7 +117,9 @@ BOOL CarticleDlg::OnInitDialog()
 	ShowWindow(SW_MAXIMIZE);
 
 	// TODO:  在此添加额外的初始化代码
-	
+	radioReturn = (CButton*)GetDlgItem(IDC_RADIO1);
+	radioFullStop = (CButton*)GetDlgItem(IDC_RADIO2);
+	radioReturn->SetCheck(1);
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -171,15 +176,15 @@ HCURSOR CarticleDlg::OnQueryDragIcon()
 
 void CarticleDlg::OnBnClickedOk()
 {
-	// TODO:  在此添加控件通知处理程序代码
 	ch.ReSet();
 	this->UpdateData(1);
-	ch.GetParagraphs(strArticle);
+	if (radioReturn->GetCheck())
+		ch.SeparateArticle(strArticle, L"\r\n");
+	else
+		ch.SeparateArticle(strArticle, L"。");
 	ch.RandPras();
 	this->strNewArt = ch.cstrArticle;
 	UpdateData(0);
-
-	
 }
 
 void CarticleDlg::OnBnClickedCancel()
@@ -214,4 +219,9 @@ void CarticleDlg::OnEnSetfocusNewart()
 {
 	//自动全选，方便复制
 	conNewArt.SetSel(0, this->conNewArt.GetWindowTextLengthW(), 0);
+}
+
+void CarticleDlg::OnBnClickedRadio2()
+{
+	// TODO:  在此添加控件通知处理程序代码
 }
