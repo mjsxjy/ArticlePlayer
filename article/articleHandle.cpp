@@ -41,7 +41,7 @@ void CarticleHandle::SeparateArticle(CString cstrArticle, CString cstrSeparator)
 		else
 		{
 			//为方便之后乱序操作，补上最后一段的换行符
-				PraArray[PraCounts] = pra_last + L"\r\n";
+			PraArray[PraCounts] = pra_last + L"\r\n";
 			PraCounts++;
 		}
 	}
