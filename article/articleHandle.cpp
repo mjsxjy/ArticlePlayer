@@ -17,7 +17,7 @@ INT CarticleHandle::GetSeparator(CString Separator)
 
 }
 
-
+//git test
 void CarticleHandle::SeparateArticle(CString cstrArticle, CString cstrSeparator)
 {
 	if ((cstrArticle.Trim().GetLength() > 0)&& (PraCounts<=MAX_PRAS))
