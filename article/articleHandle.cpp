@@ -3,7 +3,7 @@
 
 CarticleHandle::CarticleHandle()
 {
-
+	srand(unsigned(int(time(NULL))));
 }
 
 CarticleHandle::~CarticleHandle()
@@ -11,16 +11,10 @@ CarticleHandle::~CarticleHandle()
 
 }
 
-INT CarticleHandle::GetSeparator(CString Separator)
-{
-	return 1;
 
-}
-
-//git test2
 void CarticleHandle::SeparateArticle(CString cstrArticle, CString cstrSeparator)
 {
-	if ((cstrArticle.Trim().GetLength() > 0)&& (PraCounts<=MAX_PRAS))
+	if ((cstrArticle.Trim().GetLength() > 0) && (PraCounts < MAX_PRAS))
 	{
 		int GetSeparator = cstrArticle.Find(cstrSeparator);
 		CString pra_last;
@@ -50,52 +44,45 @@ void CarticleHandle::SeparateArticle(CString cstrArticle, CString cstrSeparator)
 
 void CarticleHandle::RandPras()
 {
-	if ((this->CheckInput()))
+	CString s;
+	this->RandNumer(PraCounts);
+	for (int i = 0; i < PraCounts; i++)
 	{
-		CString s;
-		this->RandNumer(PraCounts);
-		for (int i = 0; i < PraCounts; i++)
-		{
-			TempPraArray[i] = PraArray[TempNumberArray[i]];
-			s += TempPraArray[i];
-		}
-		this->cstrArticle = s;
+		TempPraArray[i] = PraArray[TempNumberArray[i]];
+		s += TempPraArray[i];
 	}
+	this->cstrArticle = s;
 }
 
 
 void CarticleHandle::ReSet()
 {
-	if (this->CheckInput())
+	this->cstrArticle = "";
+
+	for (int i = 0; i < PraCounts; i++)
 	{
-
-		this->cstrArticle = "";
-
-		for (int i = 0; i < PraCounts; i++)
-		{
-			PraArray[i] = "";
-			TempNumberArray[i] = 0;
-			TempPraArray[i] = "";
-		}
-
-		PraCounts = 0;
+		PraArray[i] = "";
+		TempNumberArray[i] = 0;
+		TempPraArray[i] = "";
 	}
+
+	PraCounts = 0;
 }
 
+//产生Num-1范围内不重复的随机数思密达~
 void CarticleHandle::RandNumer(int Num)
 {
-	//srand((unsigned)time(NULL));
 	int i, m;
+
 	for (i = 1; i < Num; i++)
 	{
 		while (TempNumberArray[m = rand() % Num]);
 		TempNumberArray[m] = i;
 	}
 }
-boolean CarticleHandle::CheckInput()
+
+//遍历关键词的同时进行替换
+int CarticleHandle::GetStringIndex(CString cstrTest, CString cstrKey)
 {
-	if ((PraCounts <= MAX_PRAS) && (PraCounts > 0))
-		return true;
-	else
-		return false;
+	return this->cstrArticle.Replace(cstrKey, _T("换了"));
 }

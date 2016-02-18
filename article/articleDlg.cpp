@@ -114,7 +114,7 @@ BOOL CarticleDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
-	ShowWindow(SW_MAXIMIZE);
+	//ShowWindow(SW_MAXIMIZE);
 
 	// TODO:  在此添加额外的初始化代码
 	radioReturn = (CButton*)GetDlgItem(IDC_RADIO1);
@@ -197,8 +197,9 @@ void CarticleDlg::OnBnClickedCancel()
 void CarticleDlg::OnBnClickedButton1()
 {
 	// TODO:  在此添加控件通知处理程序代码
-
-
+	ch.GetStringIndex(this->strArticle, _T("测试"));
+	this->strNewArt = ch.cstrArticle;
+	UpdateData(0);
 }
 
 
