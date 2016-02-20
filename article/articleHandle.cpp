@@ -1,18 +1,29 @@
 #include "stdafx.h"
 #include "articleHandle.h"
 
-CarticleHandle::CarticleHandle()
+/*
+CArticleHandle类外部接口：
+  1、读入文章：ReadArticle(CString Article)
+  2、对按指定的分隔符对文章进行乱序操作并返回乱序后的文章：RandOrder(CString Sparator)
+  3、替换指定的关键词：ReplaceWord(CString OldWord, CString NewWord)
+*/
+
+CArticleHandle::CArticleHandle()
 {
 	srand(unsigned(int(time(NULL))));
 }
 
-CarticleHandle::~CarticleHandle()
+CArticleHandle::~CArticleHandle()
 {
 
 }
 
+void CArticleHandle::ReadArticle(CString Article)
+{
+	this->cstrArticle = Article;
+}
 
-void CarticleHandle::SeparateArticle(CString cstrArticle, CString cstrSeparator)
+void CArticleHandle::SeparateArticle(CString cstrArticle, CString cstrSeparator)
 {
 	if ((cstrArticle.Trim().GetLength() > 0) && (PraCounts < MAX_PRAS))
 	{
@@ -42,7 +53,7 @@ void CarticleHandle::SeparateArticle(CString cstrArticle, CString cstrSeparator)
 }
 
 
-void CarticleHandle::RandPras()
+void CArticleHandle::RandAndSave()
 {
 	CString s;
 	this->RandNumer(PraCounts);
@@ -55,7 +66,7 @@ void CarticleHandle::RandPras()
 }
 
 
-void CarticleHandle::ReSet()
+void CArticleHandle::ReSet()
 {
 	this->cstrArticle = "";
 
@@ -70,7 +81,7 @@ void CarticleHandle::ReSet()
 }
 
 //产生Num-1范围内不重复的随机数思密达~
-void CarticleHandle::RandNumer(int Num)
+void CArticleHandle::RandNumer(int Num)
 {
 	int i, m;
 
@@ -81,8 +92,16 @@ void CarticleHandle::RandNumer(int Num)
 	}
 }
 
-//遍历关键词的同时进行替换
-int CarticleHandle::GetStringIndex(CString cstrTest, CString cstrKey)
+
+CString CArticleHandle::ReplaceWord(CString OldWord, CString NewWord)
 {
-	return this->cstrArticle.Replace(cstrKey, _T("换了"));
+	this->cstrArticle.Replace(OldWord, NewWord);
+	return this->cstrArticle;
+}
+
+CString CArticleHandle::RandOrder(CString Sparator)
+{
+	this->SeparateArticle(this->cstrArticle, Sparator);
+	this->RandAndSave();
+	return this->cstrArticle;
 }

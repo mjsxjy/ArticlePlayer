@@ -12,7 +12,7 @@
 #define new DEBUG_NEW
 #endif
 
-CarticleHandle ch;
+CArticleHandle ch;
 CButton* radioReturn;
 CButton* radioFullStop;
 
@@ -178,12 +178,11 @@ void CarticleDlg::OnBnClickedOk()
 {
 	ch.ReSet();
 	this->UpdateData(1);
+	ch.ReadArticle(this->strArticle);
 	if (radioReturn->GetCheck())
-		ch.SeparateArticle(strArticle, L"\r\n");
+		this->strNewArt = ch.RandOrder(L"\r\n");
 	else
-		ch.SeparateArticle(strArticle, L"。");
-	ch.RandPras();
-	this->strNewArt = ch.cstrArticle;
+		this->strNewArt = ch.RandOrder(L"。");
 	UpdateData(0);
 }
 
@@ -197,8 +196,9 @@ void CarticleDlg::OnBnClickedCancel()
 void CarticleDlg::OnBnClickedButton1()
 {
 	// TODO:  在此添加控件通知处理程序代码
-	ch.GetStringIndex(this->strArticle, _T("测试"));
-	this->strNewArt = ch.cstrArticle;
+	this->UpdateData(1);
+	ch.ReadArticle(this->strArticle);
+	this->strNewArt = ch.ReplaceWord(_T("测试"), _T("新词"));
 	UpdateData(0);
 }
 

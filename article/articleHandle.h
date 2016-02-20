@@ -1,18 +1,21 @@
 #pragma once
 
-class CarticleHandle
+class CArticleHandle
 {
 public:
-	CarticleHandle();
-	~CarticleHandle();
-	CString cstrArticle;
+	CArticleHandle();
+	~CArticleHandle();
+	void ReadArticle(CString Article);
+	CString RandOrder(CString Sparator);
+	
+	void ReSet();
+	CString ReplaceWord(CString OldWord, CString NewWord);
+private:
+	CString cstrArticle;//唯一操作的字符（文章）
 	//递归）将文字按照cstrSeparator指定的符号分隔并传入数组中
 	void SeparateArticle(CString cstrArticle, CString cstrSeparator);
-	void RandPras();//随机排序
-	void ReSet();
-	int GetStringIndex(CString cstrTest, CString cstrKey);
-private:
 	static const int MAX_PRAS = 100; //最大处理的分隔符数
+	void RandAndSave();//随机排序
 	int KeyIndex = 0;
 	CString PraArray[MAX_PRAS];//这是一个用来存储每一分隔的数组
 	CString TempPraArray[MAX_PRAS];//临时存储产生的随机数组
