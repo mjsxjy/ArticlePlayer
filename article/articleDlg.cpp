@@ -57,6 +57,8 @@ CarticleDlg::CarticleDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CarticleDlg::IDD, pParent)
 	, strArticle(_T(""))
 	, strNewArt(_T(""))
+	, StrOldKey(_T(""))
+	, StrNewKey(_T(""))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -68,6 +70,8 @@ void CarticleDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_NewArt, strNewArt);
 	DDX_Control(pDX, IDC_NewArt, conNewArt);
 	DDX_Control(pDX, IDC_ARTICLE, conArticle);
+	DDX_Text(pDX, IDC_EDIT1, StrOldKey);
+	DDX_Text(pDX, IDC_EDIT2, StrNewKey);
 }
 
 BEGIN_MESSAGE_MAP(CarticleDlg, CDialogEx)
@@ -178,7 +182,10 @@ void CarticleDlg::OnBnClickedOk()
 {
 	ch.ReSet();
 	this->UpdateData(1);
-	ch.ReadArticle(this->strArticle);
+	if (this->strNewArt == "")
+		ch.ReadArticle(this->strArticle);
+	else
+		ch.ReadArticle(this->strNewArt);
 	if (radioReturn->GetCheck())
 		this->strNewArt = ch.RandOrder(L"\r\n");
 	else
@@ -197,8 +204,13 @@ void CarticleDlg::OnBnClickedButton1()
 {
 	// TODO:  在此添加控件通知处理程序代码
 	this->UpdateData(1);
-	ch.ReadArticle(this->strArticle);
-	this->strNewArt = ch.ReplaceWord(_T("测试"), _T("新词"));
+
+	if (this->strNewArt == "")
+		ch.ReadArticle(this->strArticle);
+	else
+		ch.ReadArticle(this->strNewArt);
+	//this->strNewArt = ch.ReplaceWord(_T("测试"), _T("新词"));
+	this->strNewArt = ch.ReplaceWord(this->StrOldKey, this->StrNewKey);
 	UpdateData(0);
 }
 

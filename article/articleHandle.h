@@ -9,7 +9,10 @@ public:
 	CString RandOrder(CString Sparator);
 	
 	void ReSet();
+	//关键词替换测试
 	CString ReplaceWord(CString OldWord, CString NewWord);
+	//一个标志：为真则乱序完成，为假则乱序未完成
+	BOOL IsDoen;
 private:
 	CString cstrArticle;//唯一操作的字符（文章）
 	//递归）将文字按照cstrSeparator指定的符号分隔并传入数组中

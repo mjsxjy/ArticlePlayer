@@ -31,7 +31,7 @@ void CArticleHandle::SeparateArticle(CString cstrArticle, CString cstrSeparator)
 		CString pra_last;
 		CString pra1 = cstrArticle.Left(GetSeparator + cstrSeparator.GetLength());
 		
-		if (cstrSeparator.GetLength() == 2)
+		if (cstrSeparator.GetLength() == 2) //回车符
 			pra_last = cstrArticle.Right(cstrArticle.GetLength() - GetSeparator); //为回车符时不能-1
 		else
 		{
@@ -103,5 +103,13 @@ CString CArticleHandle::RandOrder(CString Sparator)
 {
 	this->SeparateArticle(this->cstrArticle, Sparator);
 	this->RandAndSave();
+	//if (this->cstrArticle.Trim() == "")
+	//{
+	//	this->IsDoen = FALSE;
+	//}
+	//else
+	//{
+	//	this->IsDoen = TRUE;
+	//}
 	return this->cstrArticle;
 }
