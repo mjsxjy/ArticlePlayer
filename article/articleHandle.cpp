@@ -103,13 +103,5 @@ CString CArticleHandle::RandOrder(CString Sparator)
 {
 	this->SeparateArticle(this->cstrArticle, Sparator);
 	this->RandAndSave();
-	//if (this->cstrArticle.Trim() == "")
-	//{
-	//	this->IsDoen = FALSE;
-	//}
-	//else
-	//{
-	//	this->IsDoen = TRUE;
-	//}
 	return this->cstrArticle;
 }

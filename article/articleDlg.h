@@ -42,10 +42,8 @@ public:
 	CEdit conArticle;
 	afx_msg void OnEnSetfocusNewart();
 	afx_msg void OnBnClickedRadio2();
-//	CString StrSourceKey;
-//	CString StrDesKey;
-//	CString StrOldKey;
-//	CString StrNewKey;
 	CString StrOldKey;
 	CString StrNewKey;
+private:
+	bool IsNewArticle();
 };

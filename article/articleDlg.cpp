@@ -182,10 +182,7 @@ void CarticleDlg::OnBnClickedOk()
 {
 	ch.ReSet();
 	this->UpdateData(1);
-	if (this->strNewArt == "")
-		ch.ReadArticle(this->strArticle);
-	else
-		ch.ReadArticle(this->strNewArt);
+	this->IsNewArticle() ? ch.ReadArticle(this->strNewArt) : ch.ReadArticle(this->strArticle);
 	if (radioReturn->GetCheck())
 		this->strNewArt = ch.RandOrder(L"\r\n");
 	else
@@ -204,12 +201,7 @@ void CarticleDlg::OnBnClickedButton1()
 {
 	// TODO:  在此添加控件通知处理程序代码
 	this->UpdateData(1);
-
-	if (this->strNewArt == "")
-		ch.ReadArticle(this->strArticle);
-	else
-		ch.ReadArticle(this->strNewArt);
-	//this->strNewArt = ch.ReplaceWord(_T("测试"), _T("新词"));
+	this->IsNewArticle() ? ch.ReadArticle(this->strNewArt) : ch.ReadArticle(this->strArticle);
 	this->strNewArt = ch.ReplaceWord(this->StrOldKey, this->StrNewKey);
 	UpdateData(0);
 }
@@ -237,4 +229,13 @@ void CarticleDlg::OnEnSetfocusNewart()
 void CarticleDlg::OnBnClickedRadio2()
 {
 	// TODO:  在此添加控件通知处理程序代码
+}
+
+//判断本类里的strNewArt是否为空
+bool CarticleDlg::IsNewArticle()
+{
+	if (this->strNewArt != "")
+		return true;
+	else
+		return false;
 }
