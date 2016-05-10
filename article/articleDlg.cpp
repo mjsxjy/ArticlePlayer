@@ -84,6 +84,7 @@ BEGIN_MESSAGE_MAP(CarticleDlg, CDialogEx)
 	ON_EN_SETFOCUS(IDC_ARTICLE, &CarticleDlg::OnSetfocusArticle)
 	ON_EN_SETFOCUS(IDC_NewArt, &CarticleDlg::OnEnSetfocusNewart)
 	ON_BN_CLICKED(IDC_RADIO2, &CarticleDlg::OnBnClickedRadio2)
+	ON_EN_CHANGE(IDC_ARTICLE, &CarticleDlg::OnEnChangeArticle)
 END_MESSAGE_MAP()
 
 
@@ -182,11 +183,12 @@ void CarticleDlg::OnBnClickedOk()
 {
 	ch.ReSet();
 	this->UpdateData(1);
-	this->IsNewArticle() ? ch.ReadArticle(this->strNewArt) : ch.ReadArticle(this->strArticle);
+	this->NewArticle ? ch.ReadArticle(this->strArticle) : ch.ReadArticle(this->strNewArt);
 	if (radioReturn->GetCheck())
 		this->strNewArt = ch.RandOrder(L"\r\n");
 	else
 		this->strNewArt = ch.RandOrder(L"。");
+	this->NewArticle = false;
 	UpdateData(0);
 }
 
@@ -201,8 +203,9 @@ void CarticleDlg::OnBnClickedButton1()
 {
 	// TODO:  在此添加控件通知处理程序代码
 	this->UpdateData(1);
-	this->IsNewArticle() ? ch.ReadArticle(this->strNewArt) : ch.ReadArticle(this->strArticle);
+	this->NewArticle ? ch.ReadArticle(this->strArticle) : ch.ReadArticle(this->strNewArt);
 	this->strNewArt = ch.ReplaceWord(this->StrOldKey, this->StrNewKey);
+	this->NewArticle = false;
 	UpdateData(0);
 }
 
@@ -231,11 +234,8 @@ void CarticleDlg::OnBnClickedRadio2()
 	// TODO:  在此添加控件通知处理程序代码
 }
 
-//判断本类里的strNewArt是否为空
-bool CarticleDlg::IsNewArticle()
+
+void CarticleDlg::OnEnChangeArticle()
 {
-	if (this->strNewArt != "")
-		return true;
-	else
-		return false;
+	this->NewArticle = true;
 }
