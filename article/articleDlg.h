@@ -49,4 +49,5 @@ private:
 	bool NewArticle;//判断是否是新文章
 public:
 	afx_msg void OnEnChangeArticle();
+	afx_msg void OnBnClickedButton2();
 };

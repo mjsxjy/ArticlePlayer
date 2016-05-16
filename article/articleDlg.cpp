@@ -85,6 +85,7 @@ BEGIN_MESSAGE_MAP(CarticleDlg, CDialogEx)
 	ON_EN_SETFOCUS(IDC_NewArt, &CarticleDlg::OnEnSetfocusNewart)
 	ON_BN_CLICKED(IDC_RADIO2, &CarticleDlg::OnBnClickedRadio2)
 	ON_EN_CHANGE(IDC_ARTICLE, &CarticleDlg::OnEnChangeArticle)
+	ON_BN_CLICKED(IDC_BUTTON2, &CarticleDlg::OnBnClickedButton2)
 END_MESSAGE_MAP()
 
 
@@ -238,4 +239,14 @@ void CarticleDlg::OnBnClickedRadio2()
 void CarticleDlg::OnEnChangeArticle()
 {
 	this->NewArticle = true;
+}
+
+
+void CarticleDlg::OnBnClickedButton2()
+{
+	ch.ReSet();
+	this->UpdateData(1);
+	this->NewArticle ? ch.ReadArticle(this->strArticle) : ch.ReadArticle(this->strNewArt);
+	ch.ScanArticle(6);
+	this->NewArticle = false;
 }
