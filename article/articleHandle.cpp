@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "articleHandle.h"
 
+
 /*
 CArticleHandle类外部接口：
   1、读入文章：ReadArticle(CString Article)
@@ -116,9 +117,11 @@ int CArticleHandle::ScanArticle(byte WordLength)
 	CString *pPhoneNum = new CString((char*)buf, cs1.GetLength()); //将byte数组转换成cstring
 	CString cs2 = *pPhoneNum;
 	********************************************************************************/
+	
 
+	//LISTCSTRING list1;
 	wchar_t buff[MAX_WORDS];
-
+	int k = 0;
 	wmemcpy(buff, this->cstrArticle.GetBuffer(MAX_WORDS), MAX_WORDS);
 	//MessageBox(0, (LPCWSTR)buff, L"", 0);
 	int l = wcslen(buff);
@@ -131,9 +134,31 @@ int CArticleHandle::ScanArticle(byte WordLength)
 		{//测试字符串：abcdefghijklmnyuisaidjflnvxcvef.dfialkdinvcmxnzldfk,
 			if ((buff[i] != ' ') && (buff[i] == buff[i + j + 2]) && (buff[i + 1] == buff[i + j + 3]))
 			{
-				MessageBox(0, L"OK", L"", 0);//二字字符测试成功，空格不作为测试对象
+				//下面的二句，可以把wchar_t转为CString ，一开始用Format(_T("%s"),buff[i])来转总是出错。
+				CString s1(buff[i]);
+				CString s2(buff[i + 1]);
+				
+				this->strDuplicateWord_2[k] = s1 + s2;
+				k++;
+				if (k >= 2)
+				{
+					if (strDuplicateWord_2[k - 1].Trim() == "") continue;
+					if (this->strDuplicateWord_2[k-2] == this->strDuplicateWord_2[k-1])
+					{
+						this->strDuplicateWord_2[k-1] == "";
+						k--;
+
+						DuplicateWordList.push_front(strDuplicateWord_2[k - 1]);
+					}
+					else
+					{
+					}
+				}
 			}
 		}
 	}
+	this->DuplicateWordList.sort();
+	this->DuplicateWordList.unique();
+
 	return 0;
 }

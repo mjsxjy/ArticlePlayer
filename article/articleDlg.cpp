@@ -59,6 +59,7 @@ CarticleDlg::CarticleDlg(CWnd* pParent /*=NULL*/)
 	, strNewArt(_T(""))
 	, StrOldKey(_T(""))
 	, StrNewKey(_T(""))
+	, strCombo(_T(""))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -72,6 +73,8 @@ void CarticleDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_ARTICLE, conArticle);
 	DDX_Text(pDX, IDC_EDIT1, StrOldKey);
 	DDX_Text(pDX, IDC_EDIT2, StrNewKey);
+	DDX_CBString(pDX, IDC_COMBO1, strCombo);
+	DDX_Control(pDX, IDC_COMBO1, cCombo);
 }
 
 BEGIN_MESSAGE_MAP(CarticleDlg, CDialogEx)
@@ -249,4 +252,13 @@ void CarticleDlg::OnBnClickedButton2()
 	this->NewArticle ? ch.ReadArticle(this->strArticle) : ch.ReadArticle(this->strNewArt);
 	ch.ScanArticle(6);
 	this->NewArticle = false;
+	typedef std::list<CString> LISTCSTRING;
+	LISTCSTRING templist;
+	std::list<CString>::const_iterator it;
+	for (it = ch.DuplicateWordList.begin(); it != ch.DuplicateWordList.end(); it++)
+	{
+		this->cCombo.AddString(*it);
+	}
+	ch.DuplicateWordList.clear();
+	this->UpdateData(0);
 }
