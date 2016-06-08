@@ -117,46 +117,143 @@ int CArticleHandle::ScanArticle(byte WordLength)
 	CString *pPhoneNum = new CString((char*)buf, cs1.GetLength()); //将byte数组转换成cstring
 	CString cs2 = *pPhoneNum;
 	********************************************************************************/
-	
-
-	//LISTCSTRING list1;
 	wchar_t buff[MAX_WORDS];
-	int k = 0;
 	wmemcpy(buff, this->cstrArticle.GetBuffer(MAX_WORDS), MAX_WORDS);
-	//MessageBox(0, (LPCWSTR)buff, L"", 0);
 	int l = wcslen(buff);
-	for (int i = 0; i < l; i++) //扫描由文章组成的字符数组
+	switch (WordLength)
 	{
-		//比较0-1和2-3,3-4,4-5.....
-		//比较1-2和3-4,4-5,5-6,6-7....
-		//....
-		for (int j = 0; j < l; j++)
-		{//测试字符串：abcdefghijklmnyuisaidjflnvxcvef.dfialkdinvcmxnzldfk,
-			if ((buff[i] != ' ') && (buff[i] == buff[i + j + 2]) && (buff[i + 1] == buff[i + j + 3]))
-			{
-				//下面的二句，可以把wchar_t转为CString ，一开始用Format(_T("%s"),buff[i])来转总是出错。
-				CString s1(buff[i]);
-				CString s2(buff[i + 1]);
-				
-				this->strDuplicateWord_2[k] = s1 + s2;
-				k++;
-				if (k >= 2)
-				{
-					if (strDuplicateWord_2[k - 1].Trim() == "") continue;
-					if (this->strDuplicateWord_2[k-2] == this->strDuplicateWord_2[k-1])
-					{
-						this->strDuplicateWord_2[k-1] == "";
-						k--;
-
-						DuplicateWordList.push_front(strDuplicateWord_2[k - 1]);
-					}
-					else
-					{
-					}
-				}
-			}
-		}
+	case 2:
+	{
+			  for (int i = 0; i < l; i++) //扫描由文章组成的字符数组
+			  {
+				  //比较0-1和2-3,3-4,4-5.....
+				  //比较1-2和3-4,4-5,5-6,6-7....
+				  //....
+				  for (int j = 0; j < l; j++)
+				  {
+					  if ((buff[i] != ' ') && (buff[i] == buff[i + j + 2]) && (buff[i + 1] == buff[i + j + 3]))
+					  {
+						CString s1(buff[i]);
+						CString s2(buff[i + 1]);
+						DuplicateWordList.push_front(s1+s2);
+					  }
+				  }
+			  }
+			  break;
 	}
+	case 3:
+	{
+			  for (int i = 0; i < l; i++)
+			  {
+				  for (int j = 0; j < l; j++)
+				  {
+					  if ((buff[i] != ' ') && (buff[i] == buff[i + j + 2]) && (buff[i + 1] == buff[i + j + 3]) &&
+						  (buff[i + 2] == buff[i + j + 4]))
+					  {
+						  CString s1(buff[i]);
+						  CString s2(buff[i + 1]);
+						  CString s3(buff[i + 2]);
+						  DuplicateWordList.push_front(s1+ s2 +s3);
+					  }
+				  }
+			  }
+			  break;
+	}
+	case 4:
+	{
+			  for (int i = 0; i < l; i++)
+			  {
+				  for (int j = 0; j < l; j++)
+				  {
+					  if ((buff[i] != ' ') && (buff[i] == buff[i + j + 2]) && (buff[i + 1] == buff[i + j + 3]) &&
+						  (buff[i + 2] == buff[i + j + 4]) && (buff[i + 3] == buff[i + j + 5]))
+					  {
+						  CString s1(buff[i]);
+						  CString s2(buff[i + 1]);
+						  CString s3(buff[i + 2]);
+						  CString s4(buff[i + 3]);
+						  DuplicateWordList.push_front(s1 + s2 + s3 + s4);
+					  }
+				  }
+			  }
+			  break;
+	}
+	case 5:
+	{
+			  for (int i = 0; i < l; i++)
+			  {
+				  for (int j = 0; j < l; j++)
+				  {
+					  if ((buff[i] != ' ') && (buff[i] == buff[i + j + 2]) && (buff[i + 1] == buff[i + j + 3]) &&
+						  (buff[i + 2] == buff[i + j + 4]) && (buff[i + 3] == buff[i + j + 5]) && 
+						  (buff[i + 3] == buff[i + j + 5]) && (buff[i + 4] == buff[i + j + 6]))
+					  {
+
+						  CString s1(buff[i]);
+						  CString s2(buff[i + 1]);
+						  CString s3(buff[i + 2]);
+						  CString s4(buff[i + 3]);
+						  CString s5(buff[i + 4]);
+						  DuplicateWordList.push_front(s1 + s2 + s3 + s4 + s5);
+					  }
+				  }
+			  }
+			  break;
+	}
+	case 6:
+	{
+			  for (int i = 0; i < l; i++)
+			  {
+				  for (int j = 0; j < l; j++)
+				  {
+					  if ((buff[i] != ' ') && (buff[i] == buff[i + j + 2]) && (buff[i + 1] == buff[i + j + 3]) &&
+						  (buff[i + 2] == buff[i + j + 4]) && (buff[i + 3] == buff[i + j + 5]) &&
+						  (buff[i + 3] == buff[i + j + 5]) && (buff[i + 4] == buff[i + j + 6]) &&
+						  (buff[i + 4] == buff[i + j + 6]) && (buff[i + 5] == buff[i + j + 7]))
+					  {
+
+						  CString s1(buff[i]);
+						  CString s2(buff[i + 1]);
+						  CString s3(buff[i + 2]);
+						  CString s4(buff[i + 3]);
+						  CString s5(buff[i + 4]);
+						  CString s6(buff[i + 5]);
+						  DuplicateWordList.push_front(s1 + s2 + s3 + s4 + s5 + s6);
+					  }
+				  }
+			  }
+			  break;
+	}
+	case 7:
+	{
+			  for (int i = 0; i < l; i++)
+			  {
+				  for (int j = 0; j < l; j++)
+				  {
+					  if ((buff[i] != ' ') && (buff[i] == buff[i + j + 2]) && (buff[i + 1] == buff[i + j + 3]) &&
+						  (buff[i + 2] == buff[i + j + 4]) && (buff[i + 3] == buff[i + j + 5]) &&
+						  (buff[i + 3] == buff[i + j + 5]) && (buff[i + 4] == buff[i + j + 6]) &&
+						  (buff[i + 4] == buff[i + j + 6]) && (buff[i + 5] == buff[i + j + 7]) &&
+						  (buff[i + 5] == buff[i + j + 7]) && (buff[i + 6] == buff[i + j + 8]))
+					  {
+
+						  CString s1(buff[i]);
+						  CString s2(buff[i + 1]);
+						  CString s3(buff[i + 2]);
+						  CString s4(buff[i + 3]);
+						  CString s5(buff[i + 4]);
+						  CString s6(buff[i + 5]);
+						  CString s7(buff[i + 6]);
+						  DuplicateWordList.push_front(s1 + s2 + s3 + s4 + s5 + s6 + s7);
+					  }
+				  }
+			  }
+			  break;
+	}
+	default:
+		break;
+	} (WordLength);
+
 	this->DuplicateWordList.sort();
 	this->DuplicateWordList.unique();
 

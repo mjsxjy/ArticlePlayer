@@ -251,7 +251,7 @@ void CarticleDlg::OnBnClickedButton2()
 	this->UpdateData(1);
 	this->NewArticle ? ch.ReadArticle(this->strArticle) : ch.ReadArticle(this->strNewArt);
 	ch.ScanArticle(6);
-	this->NewArticle = false;
+
 	typedef std::list<CString> LISTCSTRING;
 	LISTCSTRING templist;
 	std::list<CString>::const_iterator it;
@@ -260,5 +260,6 @@ void CarticleDlg::OnBnClickedButton2()
 		this->cCombo.AddString(*it);
 	}
 	ch.DuplicateWordList.clear();
+	this->NewArticle = false;
 	this->UpdateData(0);
 }
