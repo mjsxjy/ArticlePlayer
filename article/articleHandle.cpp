@@ -7,6 +7,7 @@ CArticleHandle类外部接口：
   1、读入文章：ReadArticle(CString Article)
   2、对按指定的分隔符对文章进行乱序操作并返回乱序后的文章：RandOrder(CString Sparator)
   3、替换指定的关键词：ReplaceWord(CString OldWord, CString NewWord)
+  4、
 */
 
 CArticleHandle::CArticleHandle()
@@ -108,7 +109,7 @@ CString CArticleHandle::RandOrder(CString Sparator)
 	return this->cstrArticle;
 }
 
-int CArticleHandle::ScanArticle(byte WordLength)
+int CArticleHandle::ScanDuplicateWords(byte MinWordLength)
 {
 	/*********************CString与Byte数组的相互转化:****************************
 	CString cs1 = "gettruckpos";
@@ -120,7 +121,7 @@ int CArticleHandle::ScanArticle(byte WordLength)
 	wchar_t buff[MAX_WORDS];
 	wmemcpy(buff, this->cstrArticle.GetBuffer(MAX_WORDS), MAX_WORDS);
 	int l = wcslen(buff);
-	switch (WordLength)
+	switch (MinWordLength)
 	{
 	case 2:
 	{
@@ -131,6 +132,7 @@ int CArticleHandle::ScanArticle(byte WordLength)
 				  //....
 				  for (int j = 0; j < l; j++)
 				  {
+					  if (iswpunct(buff[i])) continue;
 					  if ((buff[i] != ' ') && (buff[i] == buff[i + j + 2]) && (buff[i + 1] == buff[i + j + 3]))
 					  {
 						CString s1(buff[i]);
@@ -139,7 +141,7 @@ int CArticleHandle::ScanArticle(byte WordLength)
 					  }
 				  }
 			  }
-			  break;
+			  //break;
 	}
 	case 3:
 	{
@@ -147,6 +149,7 @@ int CArticleHandle::ScanArticle(byte WordLength)
 			  {
 				  for (int j = 0; j < l; j++)
 				  {
+					  if (iswpunct(buff[i])) continue;
 					  if ((buff[i] != ' ') && (buff[i] == buff[i + j + 2]) && (buff[i + 1] == buff[i + j + 3]) &&
 						  (buff[i + 2] == buff[i + j + 4]))
 					  {
@@ -157,7 +160,7 @@ int CArticleHandle::ScanArticle(byte WordLength)
 					  }
 				  }
 			  }
-			  break;
+			  //break;
 	}
 	case 4:
 	{
@@ -165,6 +168,7 @@ int CArticleHandle::ScanArticle(byte WordLength)
 			  {
 				  for (int j = 0; j < l; j++)
 				  {
+					  if (iswpunct(buff[i])) continue;
 					  if ((buff[i] != ' ') && (buff[i] == buff[i + j + 2]) && (buff[i + 1] == buff[i + j + 3]) &&
 						  (buff[i + 2] == buff[i + j + 4]) && (buff[i + 3] == buff[i + j + 5]))
 					  {
@@ -176,7 +180,7 @@ int CArticleHandle::ScanArticle(byte WordLength)
 					  }
 				  }
 			  }
-			  break;
+			  //break;
 	}
 	case 5:
 	{
@@ -184,6 +188,7 @@ int CArticleHandle::ScanArticle(byte WordLength)
 			  {
 				  for (int j = 0; j < l; j++)
 				  {
+					  if (iswpunct(buff[i])) continue;
 					  if ((buff[i] != ' ') && (buff[i] == buff[i + j + 2]) && (buff[i + 1] == buff[i + j + 3]) &&
 						  (buff[i + 2] == buff[i + j + 4]) && (buff[i + 3] == buff[i + j + 5]) && 
 						  (buff[i + 3] == buff[i + j + 5]) && (buff[i + 4] == buff[i + j + 6]))
@@ -198,7 +203,7 @@ int CArticleHandle::ScanArticle(byte WordLength)
 					  }
 				  }
 			  }
-			  break;
+			  //break;
 	}
 	case 6:
 	{
@@ -206,6 +211,7 @@ int CArticleHandle::ScanArticle(byte WordLength)
 			  {
 				  for (int j = 0; j < l; j++)
 				  {
+					  if (iswpunct(buff[i])) continue;
 					  if ((buff[i] != ' ') && (buff[i] == buff[i + j + 2]) && (buff[i + 1] == buff[i + j + 3]) &&
 						  (buff[i + 2] == buff[i + j + 4]) && (buff[i + 3] == buff[i + j + 5]) &&
 						  (buff[i + 3] == buff[i + j + 5]) && (buff[i + 4] == buff[i + j + 6]) &&
@@ -222,7 +228,7 @@ int CArticleHandle::ScanArticle(byte WordLength)
 					  }
 				  }
 			  }
-			  break;
+			  //break;
 	}
 	case 7:
 	{
@@ -230,6 +236,7 @@ int CArticleHandle::ScanArticle(byte WordLength)
 			  {
 				  for (int j = 0; j < l; j++)
 				  {
+					  if (iswpunct(buff[i])) continue;
 					  if ((buff[i] != ' ') && (buff[i] == buff[i + j + 2]) && (buff[i + 1] == buff[i + j + 3]) &&
 						  (buff[i + 2] == buff[i + j + 4]) && (buff[i + 3] == buff[i + j + 5]) &&
 						  (buff[i + 3] == buff[i + j + 5]) && (buff[i + 4] == buff[i + j + 6]) &&
@@ -248,14 +255,64 @@ int CArticleHandle::ScanArticle(byte WordLength)
 					  }
 				  }
 			  }
-			  break;
+			  //break;
+	}
+	case 8:
+	{
+			  for (int i = 0; i < l; i++)
+			  {
+				  for (int j = 0; j < l; j++)
+				  {
+					  if (iswpunct(buff[i])) continue;
+					  if ((buff[i] != ' ') && (buff[i] == buff[i + j + 2]) && (buff[i + 1] == buff[i + j + 3]) &&
+						  (buff[i + 2] == buff[i + j + 4]) && (buff[i + 3] == buff[i + j + 5]) &&
+						  (buff[i + 3] == buff[i + j + 5]) && (buff[i + 4] == buff[i + j + 6]) &&
+						  (buff[i + 4] == buff[i + j + 6]) && (buff[i + 5] == buff[i + j + 7]) &&
+						  (buff[i + 5] == buff[i + j + 7]) && (buff[i + 6] == buff[i + j + 8]) &&
+						  (buff[i + 6] == buff[i + j + 8]) && (buff[i + 7] == buff[i + j + 9]))
+					  {
+
+						  CString s1(buff[i]);
+						  CString s2(buff[i + 1]);
+						  CString s3(buff[i + 2]);
+						  CString s4(buff[i + 3]);
+						  CString s5(buff[i + 4]);
+						  CString s6(buff[i + 5]);
+						  CString s7(buff[i + 6]);
+						  CString s8(buff[i + 7]);
+						  DuplicateWordList.push_front(s1 + s2 + s3 + s4 + s5 + s6 + s7 + s8);
+					  }
+				  }
+			  }
+			  //break;
+	
 	}
 	default:
 		break;
-	} (WordLength);
+	} (MinWordLength);
 
 	this->DuplicateWordList.sort();
 	this->DuplicateWordList.unique();
+//--------------------------------------------------------------------------------------------------------------
+	//下面的代码本来是想处理特殊字符，如句号，空格。思路 是把list中每个元素转为CString数组，一个个判断
+	//wchar_t *s = new wchar_t[DuplicateWordList.size()];
 
-	return 0;
+	//std::list<CString>::const_iterator it;
+	//for (it = DuplicateWordList.begin(); it != DuplicateWordList.end(); it++)
+	//{
+	//	wmemcpy(s, *it, DuplicateWordList.size());
+	//	CString ss = s;
+	//	if (ss.Trim() == "")
+	//	{
+	//		
+	//	}
+	//}
+	//delete[]s;
+//---------------------------------------------------------------------------------------------------------------
+	return this->DuplicateWordList.size();
+}
+
+void CArticleHandle::ReMoveX(CString s)
+{
+	//if (int(s)<41)
 }

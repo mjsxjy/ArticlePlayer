@@ -206,6 +206,11 @@ void CarticleDlg::OnBnClickedCancel()
 void CarticleDlg::OnBnClickedButton1()
 {
 	// TODO:  在此添加控件通知处理程序代码
+	char c;
+	c = ' ';
+	int i;
+	i = c;
+	MessageBox(LPCTSTR(i), L"", 0);
 	this->UpdateData(1);
 	this->NewArticle ? ch.ReadArticle(this->strArticle) : ch.ReadArticle(this->strNewArt);
 	this->strNewArt = ch.ReplaceWord(this->StrOldKey, this->StrNewKey);
@@ -250,16 +255,13 @@ void CarticleDlg::OnBnClickedButton2()
 	ch.ReSet();
 	this->UpdateData(1);
 	this->NewArticle ? ch.ReadArticle(this->strArticle) : ch.ReadArticle(this->strNewArt);
-	ch.ScanArticle(6);
+	ch.ScanDuplicateWords(5);
 
-	typedef std::list<CString> LISTCSTRING;
-	LISTCSTRING templist;
 	std::list<CString>::const_iterator it;
 	for (it = ch.DuplicateWordList.begin(); it != ch.DuplicateWordList.end(); it++)
 	{
 		this->cCombo.AddString(*it);
 	}
 	ch.DuplicateWordList.clear();
-	this->NewArticle = false;
 	this->UpdateData(0);
 }

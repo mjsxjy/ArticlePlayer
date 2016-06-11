@@ -16,7 +16,8 @@ private:
 	int TempNumberArray[MAX_PRAS]; //临时存储产生的随机数字
 	int PraCounts = 0;//存储分隔符数
 	void RandNumer(int Num); //产生随机数字，并存放于TempNumberArray中
-	static const int MAX_DUP_WORDS = 100;
+	typedef std::list<CString> LISTCSTRING;
+	void ReMoveX(CString s);
 
 public:
 	CArticleHandle();
@@ -27,11 +28,10 @@ public:
 	void ReSet();
 	//关键词替换测试
 	CString ReplaceWord(CString OldWord, CString NewWord);
-	//一个标志：为真则乱序完成，为假则乱序未完成
-	//BOOL IsDone;
-	//按每wordlength长度来扫描文章中重复出现的词的次数（如出现三字的词语22次，二字的词语13次等）
-	int ScanArticle(byte WordLength);
-	CString strDuplicateWord_2[MAX_DUP_WORDS];
-	typedef std::list<CString> LISTCSTRING;
+	//扫描文章中最小长度大于Minwordlength且重复出现二次以上的词，存储到DuplicateWordList中
+	//如传入 MinWordLength = 6，则扫描所有重复出现二次以上的，长度>=6 且 <=8的词
+	//返回最后得到的重复词的个数
+	int ScanDuplicateWords(byte MinWordLength);
+	//重复的词列表
 	LISTCSTRING DuplicateWordList;
 };
