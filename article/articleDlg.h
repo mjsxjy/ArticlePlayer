@@ -52,4 +52,5 @@ public:
 	afx_msg void OnBnClickedButton2();
 	CString strCombo;
 	CComboBox cCombo;
+	afx_msg void OnEnChangeNewart();
 };

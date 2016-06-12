@@ -89,6 +89,7 @@ BEGIN_MESSAGE_MAP(CarticleDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_RADIO2, &CarticleDlg::OnBnClickedRadio2)
 	ON_EN_CHANGE(IDC_ARTICLE, &CarticleDlg::OnEnChangeArticle)
 	ON_BN_CLICKED(IDC_BUTTON2, &CarticleDlg::OnBnClickedButton2)
+	ON_EN_CHANGE(IDC_NewArt, &CarticleDlg::OnEnChangeNewart)
 END_MESSAGE_MAP()
 
 
@@ -206,11 +207,6 @@ void CarticleDlg::OnBnClickedCancel()
 void CarticleDlg::OnBnClickedButton1()
 {
 	// TODO:  在此添加控件通知处理程序代码
-	char c;
-	c = ' ';
-	int i;
-	i = c;
-	MessageBox(LPCTSTR(i), L"", 0);
 	this->UpdateData(1);
 	this->NewArticle ? ch.ReadArticle(this->strArticle) : ch.ReadArticle(this->strNewArt);
 	this->strNewArt = ch.ReplaceWord(this->StrOldKey, this->StrNewKey);
@@ -254,8 +250,11 @@ void CarticleDlg::OnBnClickedButton2()
 {
 	ch.ReSet();
 	this->UpdateData(1);
-	this->NewArticle ? ch.ReadArticle(this->strArticle) : ch.ReadArticle(this->strNewArt);
-	ch.ScanDuplicateWords(5);
+
+	strArticle.Remove(' ');
+	strArticle.Remove('\r\n');
+	ch.ReadArticle(this->strArticle);
+	ch.ScanDuplicateWords(7);//
 
 	std::list<CString>::const_iterator it;
 	for (it = ch.DuplicateWordList.begin(); it != ch.DuplicateWordList.end(); it++)
@@ -264,4 +263,15 @@ void CarticleDlg::OnBnClickedButton2()
 	}
 	ch.DuplicateWordList.clear();
 	this->UpdateData(0);
+}
+
+
+void CarticleDlg::OnEnChangeNewart()
+{
+	// TODO:  如果该控件是 RICHEDIT 控件，它将不
+	// 发送此通知，除非重写 CDialogEx::OnInitDialog()
+	// 函数并调用 CRichEditCtrl().SetEventMask()，
+	// 同时将 ENM_CHANGE 标志“或”运算到掩码中。
+
+	// TODO:  在此添加控件通知处理程序代码
 }

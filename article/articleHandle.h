@@ -8,7 +8,7 @@ private:
 	//递归）将文字按照cstrSeparator指定的符号分隔并传入数组中
 	void SeparateArticle(CString cstrArticle, CString cstrSeparator);
 	static const int MAX_PRAS = 100; //最大处理的分隔符数
-	static const int MAX_WORDS = 10000; //最大处理的字符数
+	static const int MAX_WORDS = 10000; //最大处理的重复词语字符数
 	void RandAndSave();//随机排序
 	int KeyIndex = 0;
 	CString PraArray[MAX_PRAS];//这是一个用来存储每一分隔的数组
@@ -17,7 +17,7 @@ private:
 	int PraCounts = 0;//存储分隔符数
 	void RandNumer(int Num); //产生随机数字，并存放于TempNumberArray中
 	typedef std::list<CString> LISTCSTRING;
-	void ReMoveX(CString s);
+	
 
 public:
 	CArticleHandle();
