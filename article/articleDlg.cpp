@@ -57,7 +57,7 @@ CarticleDlg::CarticleDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CarticleDlg::IDD, pParent)
 	, strArticle(_T(""))
 	, strNewArt(_T(""))
-	, StrOldKey(_T(""))
+	//, StrOldKey(_T(""))
 	, StrNewKey(_T(""))
 	//, strCombo(_T(""))
 {
@@ -71,7 +71,7 @@ void CarticleDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_NewArt, strNewArt);
 	DDX_Control(pDX, IDC_NewArt, conNewArt);
 	DDX_Control(pDX, IDC_ARTICLE, conArticle);
-	DDX_Text(pDX, IDC_EDIT1, StrOldKey);
+//	DDX_Text(pDX, IDC_EDIT1, StrOldKey);
 	DDX_Text(pDX, IDC_EDIT2, StrNewKey);
 //	DDX_CBString(pDX, IDC_COMBO1, strCombo);
 	DDX_Control(pDX, IDC_COMBO1, cCombo);
@@ -210,6 +210,9 @@ void CarticleDlg::OnBnClickedButton1()
 	// TODO:  在此添加控件通知处理程序代码
 	this->UpdateData(1);
 	this->NewArticle ? ch.ReadArticle(this->strArticle) : ch.ReadArticle(this->strNewArt);
+	int index;
+	index = cCombo.GetCurSel();
+	if (index != -1) cCombo.GetLBText(index, StrOldKey);
 	this->strNewArt = ch.ReplaceWord(this->StrOldKey, this->StrNewKey);
 	this->NewArticle = false;
 	UpdateData(0);
@@ -274,5 +277,7 @@ void CarticleDlg::OnEnChangeNewart()
 
 void CarticleDlg::OnCbnSelchangeCombo1()
 {
-	
+	//int index;
+	//index = this->cCombo.GetCurSel();
+	//cCombo.GetLBText(index, StrOldKey);
 }
