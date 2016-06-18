@@ -50,7 +50,8 @@ private:
 public:
 	afx_msg void OnEnChangeArticle();
 	afx_msg void OnBnClickedButton2();
-	CString strCombo;
+	//CString strCombo;
 	CComboBox cCombo;
 	afx_msg void OnEnChangeNewart();
+	afx_msg void OnCbnSelchangeCombo1();
 };

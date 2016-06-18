@@ -59,7 +59,7 @@ CarticleDlg::CarticleDlg(CWnd* pParent /*=NULL*/)
 	, strNewArt(_T(""))
 	, StrOldKey(_T(""))
 	, StrNewKey(_T(""))
-	, strCombo(_T(""))
+	//, strCombo(_T(""))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -73,7 +73,7 @@ void CarticleDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_ARTICLE, conArticle);
 	DDX_Text(pDX, IDC_EDIT1, StrOldKey);
 	DDX_Text(pDX, IDC_EDIT2, StrNewKey);
-	DDX_CBString(pDX, IDC_COMBO1, strCombo);
+//	DDX_CBString(pDX, IDC_COMBO1, strCombo);
 	DDX_Control(pDX, IDC_COMBO1, cCombo);
 }
 
@@ -90,6 +90,7 @@ BEGIN_MESSAGE_MAP(CarticleDlg, CDialogEx)
 	ON_EN_CHANGE(IDC_ARTICLE, &CarticleDlg::OnEnChangeArticle)
 	ON_BN_CLICKED(IDC_BUTTON2, &CarticleDlg::OnBnClickedButton2)
 	ON_EN_CHANGE(IDC_NewArt, &CarticleDlg::OnEnChangeNewart)
+	ON_CBN_SELCHANGE(IDC_COMBO1, &CarticleDlg::OnCbnSelchangeCombo1)
 END_MESSAGE_MAP()
 
 
@@ -250,17 +251,16 @@ void CarticleDlg::OnBnClickedButton2()
 {
 	ch.ReSet();
 	this->UpdateData(1);
-
-	strArticle.Remove(' ');
-	strArticle.Remove('\r\n');
 	ch.ReadArticle(this->strArticle);
 	ch.ScanDuplicateWords(7);//
 
 	std::list<CString>::const_iterator it;
 	for (it = ch.DuplicateWordList.begin(); it != ch.DuplicateWordList.end(); it++)
 	{
+		
 		this->cCombo.AddString(*it);
 	}
+	this->cCombo.SetCurSel(0);
 	ch.DuplicateWordList.clear();
 	this->UpdateData(0);
 }
@@ -268,10 +268,11 @@ void CarticleDlg::OnBnClickedButton2()
 
 void CarticleDlg::OnEnChangeNewart()
 {
-	// TODO:  如果该控件是 RICHEDIT 控件，它将不
-	// 发送此通知，除非重写 CDialogEx::OnInitDialog()
-	// 函数并调用 CRichEditCtrl().SetEventMask()，
-	// 同时将 ENM_CHANGE 标志“或”运算到掩码中。
 
-	// TODO:  在此添加控件通知处理程序代码
+}
+
+
+void CarticleDlg::OnCbnSelchangeCombo1()
+{
+	
 }

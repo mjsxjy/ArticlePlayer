@@ -7,7 +7,7 @@ CArticleHandle类外部接口：
   1、读入文章：ReadArticle(CString Article)
   2、对按指定的分隔符对文章进行乱序操作并返回乱序后的文章：RandOrder(CString Sparator)
   3、替换指定的关键词：ReplaceWord(CString OldWord, CString NewWord)
-  4、
+  4、自动检测指定长度以上的重复出现的关键词：ScanDuplicateWords(byte MinWordLength)
 */
 
 CArticleHandle::CArticleHandle()
@@ -133,7 +133,6 @@ int CArticleHandle::ScanDuplicateWords(byte MinWordLength)
 				  //....
 				  for (int j = 0; j < l; j++)
 				  {
-					 // if (iswpunct(buff[i])) continue;
 					  if ((buff[i] != ' ') && (buff[i] == buff[i + j + 2]) && (buff[i + 1] == buff[i + j + 3]))
 					  {
 						CString s1(buff[i]);
@@ -149,7 +148,6 @@ int CArticleHandle::ScanDuplicateWords(byte MinWordLength)
 			  {
 				  for (int j = 0; j < l; j++)
 				  {
-					//  if (iswpunct(buff[i])) continue;
 					  if ((buff[i] != ' ') && (buff[i] == buff[i + j + 2]) && (buff[i + 1] == buff[i + j + 3]) &&
 						  (buff[i + 2] == buff[i + j + 4]))
 					  {
@@ -167,7 +165,7 @@ int CArticleHandle::ScanDuplicateWords(byte MinWordLength)
 			  {
 				  for (int j = 0; j < l; j++)
 				  {
-					//  if (iswpunct(buff[i])) continue;
+
 					  if ((buff[i] != ' ') && (buff[i] == buff[i + j + 2]) && (buff[i + 1] == buff[i + j + 3]) &&
 						  (buff[i + 2] == buff[i + j + 4]) && (buff[i + 3] == buff[i + j + 5]))
 					  {
@@ -186,7 +184,6 @@ int CArticleHandle::ScanDuplicateWords(byte MinWordLength)
 			  {
 				  for (int j = 0; j < l; j++)
 				  {
-					//  if (iswpunct(buff[i])) continue;
 					  if ((buff[i] != ' ') && (buff[i] == buff[i + j + 2]) && (buff[i + 1] == buff[i + j + 3]) &&
 						  (buff[i + 2] == buff[i + j + 4]) && (buff[i + 3] == buff[i + j + 5]) && 
 						  (buff[i + 3] == buff[i + j + 5]) && (buff[i + 4] == buff[i + j + 6]))
@@ -208,7 +205,6 @@ int CArticleHandle::ScanDuplicateWords(byte MinWordLength)
 			  {
 				  for (int j = 0; j < l; j++)
 				  {
-					//  if (iswpunct(buff[i])) continue;
 					  if ((buff[i] != ' ') && (buff[i] == buff[i + j + 2]) && (buff[i + 1] == buff[i + j + 3]) &&
 						  (buff[i + 2] == buff[i + j + 4]) && (buff[i + 3] == buff[i + j + 5]) &&
 						  (buff[i + 3] == buff[i + j + 5]) && (buff[i + 4] == buff[i + j + 6]) &&
@@ -232,7 +228,6 @@ int CArticleHandle::ScanDuplicateWords(byte MinWordLength)
 			  {
 				  for (int j = 0; j < l; j++)
 				  {
-					//  if (iswpunct(buff[i])) continue;
 					  if ((buff[i] != ' ') && (buff[i] == buff[i + j + 2]) && (buff[i + 1] == buff[i + j + 3]) &&
 						  (buff[i + 2] == buff[i + j + 4]) && (buff[i + 3] == buff[i + j + 5]) &&
 						  (buff[i + 3] == buff[i + j + 5]) && (buff[i + 4] == buff[i + j + 6]) &&
@@ -258,7 +253,6 @@ int CArticleHandle::ScanDuplicateWords(byte MinWordLength)
 			  {
 				  for (int j = 0; j < l; j++)
 				  {
-					//  if (iswpunct(buff[i])) continue;
 					  if ((buff[i] != ' ') && (buff[i] == buff[i + j + 2]) && (buff[i + 1] == buff[i + j + 3]) &&
 						  (buff[i + 2] == buff[i + j + 4]) && (buff[i + 3] == buff[i + j + 5]) &&
 						  (buff[i + 3] == buff[i + j + 5]) && (buff[i + 4] == buff[i + j + 6]) &&
