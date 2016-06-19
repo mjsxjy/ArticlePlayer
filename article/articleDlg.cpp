@@ -256,6 +256,7 @@ void CarticleDlg::OnBnClickedButton2()
 	int SelectNumber = 0;
 	SelectNumber = cComboLen.GetCurSel() + 2;
 	ch.ScanDuplicateWords(SelectNumber);
+
 	if (NewArticle) this->strNewArt = this->strArticle;
 	std::list<CString>::const_iterator it;
 	for (it = ch.DuplicateWordList.begin(); it != ch.DuplicateWordList.end(); it++)
