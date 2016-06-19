@@ -47,7 +47,6 @@ public:
 private:
 	//bool IsNewArticle();
 	bool NewArticle;//判断是否是新文章
-	
 public:
 	afx_msg void OnEnChangeArticle();
 	afx_msg void OnBnClickedButton2();
@@ -55,4 +54,7 @@ public:
 	CComboBox cCombo;
 	afx_msg void OnEnChangeNewart();
 	afx_msg void OnCbnSelchangeCombo1();
+	// 允许选择的重复词长度combobox控件变量
+	CComboBox cComboLen;
+	afx_msg void OnBnClickedButton3();
 };

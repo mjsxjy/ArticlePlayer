@@ -71,10 +71,11 @@ void CarticleDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_NewArt, strNewArt);
 	DDX_Control(pDX, IDC_NewArt, conNewArt);
 	DDX_Control(pDX, IDC_ARTICLE, conArticle);
-//	DDX_Text(pDX, IDC_EDIT1, StrOldKey);
+	//	DDX_Text(pDX, IDC_EDIT1, StrOldKey);
 	DDX_Text(pDX, IDC_EDIT2, StrNewKey);
-//	DDX_CBString(pDX, IDC_COMBO1, strCombo);
+	//	DDX_CBString(pDX, IDC_COMBO1, strCombo);
 	DDX_Control(pDX, IDC_COMBO1, cCombo);
+	DDX_Control(pDX, IDC_COMBO2, cComboLen);
 }
 
 BEGIN_MESSAGE_MAP(CarticleDlg, CDialogEx)
@@ -91,6 +92,7 @@ BEGIN_MESSAGE_MAP(CarticleDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON2, &CarticleDlg::OnBnClickedButton2)
 	ON_EN_CHANGE(IDC_NewArt, &CarticleDlg::OnEnChangeNewart)
 	ON_CBN_SELCHANGE(IDC_COMBO1, &CarticleDlg::OnCbnSelchangeCombo1)
+	ON_BN_CLICKED(IDC_BUTTON3, &CarticleDlg::OnBnClickedButton3)
 END_MESSAGE_MAP()
 
 
@@ -131,6 +133,7 @@ BOOL CarticleDlg::OnInitDialog()
 	radioReturn = (CButton*)GetDlgItem(IDC_RADIO1);
 	radioFullStop = (CButton*)GetDlgItem(IDC_RADIO2);
 	radioReturn->SetCheck(1);
+	cComboLen.SetCurSel(3);
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -176,8 +179,6 @@ void CarticleDlg::OnPaint()
 	}
 }
 
-//当用户拖动最小化窗口时系统调用此函数取得光标
-//显示。
 HCURSOR CarticleDlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
@@ -200,14 +201,12 @@ void CarticleDlg::OnBnClickedOk()
 
 void CarticleDlg::OnBnClickedCancel()
 {
-	// TODO:  在此添加控件通知处理程序代码
 	CDialogEx::OnCancel();
 }
 
 
 void CarticleDlg::OnBnClickedButton1()
 {
-	// TODO:  在此添加控件通知处理程序代码
 	this->UpdateData(1);
 	this->NewArticle ? ch.ReadArticle(this->strArticle) : ch.ReadArticle(this->strNewArt);
 	int index;
@@ -221,7 +220,6 @@ void CarticleDlg::OnBnClickedButton1()
 
 BOOL CarticleDlg::DestroyWindow()
 {
-	// TODO:  在此添加专用代码和/或调用基类
 	return CDialogEx::DestroyWindow();
 }
 
@@ -240,7 +238,6 @@ void CarticleDlg::OnEnSetfocusNewart()
 
 void CarticleDlg::OnBnClickedRadio2()
 {
-	// TODO:  在此添加控件通知处理程序代码
 }
 
 
@@ -253,19 +250,22 @@ void CarticleDlg::OnEnChangeArticle()
 void CarticleDlg::OnBnClickedButton2()
 {
 	ch.ReSet();
+	cCombo.ResetContent();
 	this->UpdateData(1);
 	ch.ReadArticle(this->strArticle);
-	ch.ScanDuplicateWords(7);//
-
+	int SelectNumber = 0;
+	SelectNumber = cComboLen.GetCurSel() + 2;
+	ch.ScanDuplicateWords(SelectNumber);
+	if (NewArticle) this->strNewArt = this->strArticle;
 	std::list<CString>::const_iterator it;
 	for (it = ch.DuplicateWordList.begin(); it != ch.DuplicateWordList.end(); it++)
 	{
-		
 		this->cCombo.AddString(*it);
 	}
 	this->cCombo.SetCurSel(0);
 	ch.DuplicateWordList.clear();
 	this->UpdateData(0);
+
 }
 
 
@@ -280,4 +280,11 @@ void CarticleDlg::OnCbnSelchangeCombo1()
 	//int index;
 	//index = this->cCombo.GetCurSel();
 	//cCombo.GetLBText(index, StrOldKey);
+}
+
+
+void CarticleDlg::OnBnClickedButton3()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	
 }
