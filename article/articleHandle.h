@@ -28,7 +28,7 @@ public:
 	void ReSet();
 	//关键词替换测试
 	CString ReplaceWord(CString OldWord, CString NewWord);
-	//扫描文章中最小长度大于Minwordlength且重复出现二次以上的词，存储到DuplicateWordList中
+	//扫描文章中最小长度大于Minwordlength且重复出现二次以上的词，存储到DuplicateWordList中//
 	//如传入 MinWordLength = 6，则扫描所有重复出现二次以上的，长度>=6 且 <=8的词
 	//返回最后得到的重复词的个数
 	int ScanDuplicateWords(byte MinWordLength);

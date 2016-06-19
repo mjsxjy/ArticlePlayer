@@ -116,7 +116,7 @@ int CArticleHandle::ScanDuplicateWords(byte MinWordLength)
 	CString cs1 = "gettruckpos";
 	byte buf[200];
 	memcpy(buf, cs1.GetBuffer(cs1.GetLength()), cs1.GetLength());  //将cstring放入byte数组
-	CString *pPhoneNum = new CString((char*)buf, cs1.GetLength()); //将byte数组转换成cstring
+	CString *pPhoneNum = new CString((char*)buf, cs1.GetLength()); //将byte数组转换成cstring//
 	CString cs2 = *pPhoneNum;
 	********************************************************************************/
 	wchar_t buff[MAX_WORDS];

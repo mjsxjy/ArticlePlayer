@@ -251,7 +251,7 @@ void CarticleDlg::OnBnClickedButton2()
 {
 	ch.ReSet();
 	cCombo.ResetContent();
-	this->UpdateData(1);
+	this->UpdateData(1);//
 	ch.ReadArticle(this->strArticle);
 	int SelectNumber = 0;
 	SelectNumber = cComboLen.GetCurSel() + 2;
