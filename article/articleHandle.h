@@ -9,7 +9,7 @@ private:
 	void SeparateArticle(CString cstrArticle, CString cstrSeparator);
 	static const int MAX_PRAS = 100; //最大处理的分隔符数
 	static const int MAX_WORDS = 10000; //最大处理的重复词语字符数
-	void RandAndSave();//随机排序
+	void RandAndSave();//随机排序并保存
 	int KeyIndex = 0;
 	CString PraArray[MAX_PRAS];//这是一个用来存储每一分隔的数组
 	CString TempPraArray[MAX_PRAS];//临时存储产生的随机数组

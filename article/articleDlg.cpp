@@ -252,7 +252,10 @@ void CarticleDlg::OnBnClickedButton2()
 	ch.ReSet();
 	cCombo.ResetContent();
 	this->UpdateData(1);//
-	ch.ReadArticle(this->strArticle);
+	//ch.ReadArticle(this->strArticle);
+	
+	this->NewArticle ? ch.ReadArticle(this->strArticle) : ch.ReadArticle(this->strNewArt);
+	
 	int SelectNumber = 0;
 	SelectNumber = cComboLen.GetCurSel() + 2;
 	ch.ScanDuplicateWords(SelectNumber);
@@ -281,6 +284,9 @@ void CarticleDlg::OnCbnSelchangeCombo1()
 	//int index;
 	//index = this->cCombo.GetCurSel();
 	//cCombo.GetLBText(index, StrOldKey);
+	int index;
+
+	
 }
 
 

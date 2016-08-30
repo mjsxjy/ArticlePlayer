@@ -99,6 +99,9 @@ void CArticleHandle::RandNumer(int Num)
 
 CString CArticleHandle::ReplaceWord(CString OldWord, CString NewWord)
 {
+	CString os;
+	os = OldWord;
+	os.Find(L"*",0);
 	this->cstrArticle.Replace(OldWord, NewWord);
 	return this->cstrArticle;
 }
@@ -120,12 +123,15 @@ int CArticleHandle::ScanDuplicateWords(byte MinWordLength)
 	CString cs2 = *pPhoneNum;
 	********************************************************************************/
 	wchar_t buff[MAX_WORDS];
+	//this->SeparateArticle(cstrArticle, L"\r\n");
+	//this->JustSave();
 	wmemcpy(buff, this->cstrArticle.GetBuffer(MAX_WORDS), MAX_WORDS);
 	int l = wcslen(buff);
 	switch (MinWordLength)
 	{
 	case 2:
 	{
+		//times = 0;
 			  for (int i = 0; i < l; i++) //扫描由文章组成的字符数组
 			  {
 				  //比较0-1和2-3,3-4,4-5.....
@@ -137,10 +143,13 @@ int CArticleHandle::ScanDuplicateWords(byte MinWordLength)
 					  {
 						CString s1(buff[i]);
 						CString s2(buff[i + 1]);
-						DuplicateWordList.push_front(s1+s2);
+						//times++;
+						//strTimes.Format(L"%d*", times);
+						DuplicateWordList.push_front(s1 + s2);
 					  }
 				  }
 			  }
+			  break;
 	}
 	case 3:
 	{
@@ -158,6 +167,7 @@ int CArticleHandle::ScanDuplicateWords(byte MinWordLength)
 					  }
 				  }
 			  }
+			  break;
 	}
 	case 4:
 	{
@@ -177,6 +187,7 @@ int CArticleHandle::ScanDuplicateWords(byte MinWordLength)
 					  }
 				  }
 			  }
+			  break;
 	}
 	case 5:
 	{
@@ -198,6 +209,7 @@ int CArticleHandle::ScanDuplicateWords(byte MinWordLength)
 					  }
 				  }
 			  }
+			  break;
 	}
 	case 6:
 	{
@@ -221,6 +233,7 @@ int CArticleHandle::ScanDuplicateWords(byte MinWordLength)
 					  }
 				  }
 			  }
+			  break;
 	}
 	case 7:
 	{
@@ -234,7 +247,6 @@ int CArticleHandle::ScanDuplicateWords(byte MinWordLength)
 						  (buff[i + 4] == buff[i + j + 6]) && (buff[i + 5] == buff[i + j + 7]) &&
 						  (buff[i + 5] == buff[i + j + 7]) && (buff[i + 6] == buff[i + j + 8]))
 					  {
-
 						  CString s1(buff[i]);
 						  CString s2(buff[i + 1]);
 						  CString s3(buff[i + 2]);
@@ -246,6 +258,7 @@ int CArticleHandle::ScanDuplicateWords(byte MinWordLength)
 					  }
 				  }
 			  }
+			  break;
 	}
 	case 8:
 	{
@@ -272,6 +285,7 @@ int CArticleHandle::ScanDuplicateWords(byte MinWordLength)
 					  }
 				  }
 			  }
+			  break;
 	}
 	default:
 		break;
