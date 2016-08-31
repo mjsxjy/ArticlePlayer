@@ -24,6 +24,18 @@ void CArticleHandle::ReadArticle(CString Article)
 {
 	if (Article.Trim().GetLength() > 0)
 	{
+	//	//-------------------删除回车之类的字符start
+	//	int index = 0;
+	//	while (1)
+	//	{
+	//		if ((index = cstrArticle.Find('\r', 0)) > 0)
+	//		{
+	//			cstrArticle.Delete(index, 2);
+	//		}
+	//		else
+	//			break;
+	//	}
+	//	//--------------------删除回车之类字符end
 		this->cstrArticle = Article;
 	}
 }
@@ -123,8 +135,9 @@ int CArticleHandle::ScanDuplicateWords(byte MinWordLength)
 	CString cs2 = *pPhoneNum;
 	********************************************************************************/
 	wchar_t buff[MAX_WORDS];
-	//this->SeparateArticle(cstrArticle, L"\r\n");
-	//this->JustSave();
+
+	this->SeparateArticle(this->cstrArticle, L"\r\n");
+	this->RandAndSave();
 	wmemcpy(buff, this->cstrArticle.GetBuffer(MAX_WORDS), MAX_WORDS);
 	int l = wcslen(buff);
 	switch (MinWordLength)
