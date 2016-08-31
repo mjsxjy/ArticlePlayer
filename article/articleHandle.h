@@ -22,11 +22,14 @@ public:
 	CArticleHandle();
 	~CArticleHandle();
 	void ReadArticle(CString Article);
-	CString RandOrder(CString Sparator);
+
+	CString OutputArticle();//输出CArticleHandle此时的文章（唯一）
+
+	CString RandOrder(CString Sparator);//读入原始文章
 
 	void ReSet();
-	//关键词替换
-	CString ReplaceWord(CString OldWord, CString NewWord);
+	//关键词替换，返回是替换成功的次数
+	int ReplaceWord(CString OldWord, CString NewWord);
 	//扫描文章中最小长度等于Minwordlength且重复出现二次以上的词，存储到DuplicateWordList中//
 	//如传入 MinWordLength = 6，则扫描所有重复出现二次以上的，长度=6 的词
 	//返回最后得到的重复词的个数

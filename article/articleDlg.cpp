@@ -60,6 +60,7 @@ CarticleDlg::CarticleDlg(CWnd* pParent /*=NULL*/)
 	//, StrOldKey(_T(""))
 	, StrNewKey(_T(""))
 	//, strCombo(_T(""))
+	, CStrStatus(0)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -76,6 +77,7 @@ void CarticleDlg::DoDataExchange(CDataExchange* pDX)
 	//	DDX_CBString(pDX, IDC_COMBO1, strCombo);
 	DDX_Control(pDX, IDC_COMBO1, cCombo);
 	DDX_Control(pDX, IDC_COMBO2, cComboLen);
+	DDX_Text(pDX, IDC_EDIT1, CStrStatus);
 }
 
 BEGIN_MESSAGE_MAP(CarticleDlg, CDialogEx)
@@ -212,8 +214,10 @@ void CarticleDlg::OnBnClickedButton1()
 	int index;
 	index = cCombo.GetCurSel();
 	if (index != -1) cCombo.GetLBText(index, StrOldKey);
-	this->strNewArt = ch.ReplaceWord(this->StrOldKey, this->StrNewKey);
+	CStrStatus = ch.ReplaceWord(this->StrOldKey, this->StrNewKey);
+	this->strNewArt = ch.OutputArticle();
 	this->NewArticle = false;
+	
 	UpdateData(0);
 }
 
@@ -281,11 +285,6 @@ void CarticleDlg::OnEnChangeNewart()
 
 void CarticleDlg::OnCbnSelchangeCombo1()
 {
-	//int index;
-	//index = this->cCombo.GetCurSel();
-	//cCombo.GetLBText(index, StrOldKey);
-	int index;
-
 	
 }
 

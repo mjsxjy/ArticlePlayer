@@ -40,6 +40,11 @@ void CArticleHandle::ReadArticle(CString Article)
 	}
 }
 
+CString CArticleHandle::OutputArticle()
+{
+	return this->cstrArticle;
+}
+
 void CArticleHandle::SeparateArticle(CString cstrArticle, CString cstrSeparator)
 {
 	if ((cstrArticle.Trim().GetLength() > 0) && (PraCounts < MAX_PRAS))
@@ -109,13 +114,9 @@ void CArticleHandle::RandNumer(int Num)
 }
 
 
-CString CArticleHandle::ReplaceWord(CString OldWord, CString NewWord)
+int CArticleHandle::ReplaceWord(CString OldWord, CString NewWord)
 {
-	CString os;
-	os = OldWord;
-	os.Find(L"*",0);
-	this->cstrArticle.Replace(OldWord, NewWord);
-	return this->cstrArticle;
+	return cstrArticle.Replace(OldWord, NewWord);
 }
 
 CString CArticleHandle::RandOrder(CString Sparator)

@@ -57,4 +57,5 @@ public:
 	//允许选择的重复词长度combobox控件变量
 	CComboBox cComboLen;
 	afx_msg void OnBnClickedButton3();
+	int CStrStatus;
 };
